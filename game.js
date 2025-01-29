@@ -1,13 +1,12 @@
-///МИ ЩБ яВИЛИконстанти с клавишами игри
 const KEYS = {
     LEFT: 37,
     RIGHT: 39,
     SPACE: 32
 }
-// главний об экт в котором содержится вся логика игри
+
 let game = {
-    ctx: null, //об экт канваса
-    platform: null, //об экт платформа 
+    ctx: null,
+    platform: null, 
     ball: null,
     blocks: [],
     rows: 8,
@@ -16,16 +15,18 @@ let game = {
     width:1920,
     height:1100,
     running:true,
-    sprites: {    //картинки
+    sprites: {
         background: null,
         ball: null,
         block: null,
         platform: null
     },
-    //генерация блоков
+
     create: function () {
-        for (let row = 0; row < this.rows; row++) {
-            for (let col = 0; col < this.cols; col++) {
+        for(let row = 0; row < this.rows; row++) 
+        {
+            for(let col = 0; col < this.cols; col++) 
+            {
                 this.blocks.push({
                     active: true,
                     width: 122,
@@ -36,49 +37,56 @@ let game = {
             }
         }
     },
-    //инцилизация игри
+
     init: function () {
-        this.ctx = document.getElementById("my-game").getContext("2d") //перечесление функций
-        this.setEvents() //сщбитие
+        this.ctx = document.getElementById("my-game").getContext("2d")
+        this.setEvents()
         this.totalScore = this.rows * this.cols
     },
 
     setEvents: function () {
         window.addEventListener("keydown", (event) => {
-            if (event.keyCode == KEYS.SPACE) {
+            if(event.keyCode == KEYS.SPACE) 
+            {
                 this.platform.fire()
-                //есликлввввввввввввшана 32ззпускаем шарик
-            } else if (event.keyCode == KEYS.LEFT || event.keyCode == KEYS.RIGHT) {
+            } else if(event.keyCode == KEYS.LEFT || event.keyCode == KEYS.RIGHT) 
+            {
                 this.platform.start(event.keyCode)
             }
         }),
             window.addEventListener("keyup", (event) => {
-                //если ми отжали клавишу то остонавливаем плотформу
-                if (event.keyCode == KEYS.LEFT || event.keyCode == KEYS.RIGHT) {
+                if(event.keyCode == KEYS.LEFT || event.keyCode == KEYS.RIGHT) 
+                {
                     this.platform.stop()
                 }
             })
     },
-    //количестыво картинок загружених
+
     preload: function (callback) {
         let loaded = 0;
         let requied = Object.keys(this.sprites).length
         let onloadImage = () => {
             ++loaded
-            if (loaded >= requied) {
+
+            if(loaded >= requied) 
+            {
                 callback()
             }
         }
-        for (let key in this.sprites) {
-            this.sprites[key] = new Image()  //создаем тег имж
-            this.sprites[key].src = "img/" + key + '.png' //устанавливаем петьь
+
+        for(let key in this.sprites) 
+        {
+            this.sprites[key] = new Image()
+            this.sprites[key].src = "img/" + key + '.png'
             this.sprites[key].addEventListener("load", onloadImage)
         }
     },
-    //рендерим блоки ( отрисовуем )
+
     renderblocks: function () {
-        for (let block of this.blocks) {
-            if (block.active) {
+        for(let block of this.blocks) 
+        {
+            if(block.active) 
+            {
                 this.ctx.drawImage(this.sprites.block, block.x, block.y)
             }
         }
@@ -131,6 +139,7 @@ let game = {
         return Math.floor(Math.random() * (max - min) + min)
     }
 }
+
 game.ball = {
     x: 850,
     y: 660,
@@ -166,16 +175,20 @@ game.ball = {
         let windowTop = 0
         let windowBottom = 1200
 
-        if (ballLeft < windowLeft) {
+        if(ballLeft < windowLeft) 
+        {
             this.x = 0
             this.dx = this.velocity
-        } else if (ballRight > windowRight) {
+        } else if(ballRight > windowRight) 
+        {
             this.x = windowRight - this.width
             this.dx = -this.velocity
-        } else if (ballTop < windowTop) {
+        } else if(ballTop < windowTop) 
+        {
             this.y = 0
             this.dy = this.velocity
-        } else if (ballBottom > windowBottom) {
+        } else if(ballBottom > windowBottom) 
+        {
             game.running = false
             alert("GAME OVER")
             window.location.reload()
@@ -184,14 +197,16 @@ game.ball = {
     collide(block) {
         let x = this.x + this.dx
         let y = this.y + this.dy
-        //Условия столкновения с блоком
-        if (x + this.width > block.x &&
+
+        if(x + this.width > block.x &&
             x < block.x + block.width &&
             y + this.height > block.y &&
             y < block.y + block.height
-        ) {
+        ) 
+        {
             return true
         }
+        
         return false
     },
     bumpBlock(block) {

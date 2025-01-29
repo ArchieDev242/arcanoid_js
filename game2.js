@@ -1,9 +1,9 @@
 let game = {
     ctx:null,
-    block:[],//coordinate
+    block:[],
     rows:4,
     cols:8,
-    sprites:{//images
+    sprites:{
         background:null,
         ball:null,
         block:null,
@@ -24,11 +24,15 @@ let game = {
         let reqired = Object.keys(this.sprites).length
         let onloadImage = ()=>{
             ++loaded
-            if(loaded>=reqired){
+
+            if(loaded>=reqired)
+            {
                 callback()
             }
         }
-        for(let key in this.sprites){
+
+        for(let key in this.sprites)
+        {
             this.sprites[key] = new Image()
             this.sprites[key].src = 'img/'+key +'.png'
             this.sprites[key].addEventListener("load",onloadImage)
