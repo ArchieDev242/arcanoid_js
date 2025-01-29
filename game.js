@@ -48,6 +48,7 @@ let game = {
         window.addEventListener("keydown", (event) => {
             if(event.keyCode == KEYS.SPACE) 
             {
+                event.preventDefault()
                 this.platform.fire()
             } else if(event.keyCode == KEYS.LEFT || event.keyCode == KEYS.RIGHT) 
             {
@@ -128,6 +129,7 @@ let game = {
         })
     },
     start: function () {
+        this.reset()
         this.init();
         this.preload(() => {
             this.create()
@@ -137,6 +139,25 @@ let game = {
     },
     random: function (min, max) {
         return Math.floor(Math.random() * (max - min) + min)
+    },
+    reset: function () {
+        this.blocks = []
+        this.totalScore = this.rows * this.cols
+
+        this.platform.x = 700
+        this.platform.y = 700
+        this.platform.dx = 0
+
+        this.ball.x = this.platform.x + (this.platform.width / 2) - (this.ball.width / 2)
+        this.ball.y = this.platform.y - this.ball.height;
+
+        this.ball.dx = 0
+        this.ball.dy = 0
+
+        this.platform.ball = this.ball;
+    
+        this.create();
+        this.running = true;
     }
 }
 
@@ -191,7 +212,7 @@ game.ball = {
         {
             game.running = false
             alert("GAME OVER")
-            window.location.reload()
+            game.reset()
         }
     },
     collide(block) {
@@ -206,7 +227,7 @@ game.ball = {
         {
             return true
         }
-        
+
         return false
     },
     bumpBlock(block) {
@@ -233,8 +254,11 @@ game.ball = {
         height: 42,
         ball: game.ball,
         fire: function () {
-            this.ball.start()
-            this.ball = null
+            if(this.ball) 
+            {
+                this.ball.start();
+                this.ball = null;
+            }
         },
         getTouchOffSet(x) {
             let diff = (this.x + this.width) - x;
@@ -270,7 +294,8 @@ game.ball = {
             let windowLeft = 0
             let windowRight = 1920
 
-            if (platformLeft < windowLeft || platformRight > windowRight) {
+            if(platformLeft < windowLeft || platformRight > windowRight) 
+            {
                 this.dx = 0
             }
         }
