@@ -13,7 +13,7 @@
 
 ## 🎮 About the Game
 
-Arkanoid JS is a modern reimagining of the classic arcade game, built from scratch using pure JavaScript, HTML5 Canvas, and CSS. This project represents my first major foray into game development and web technologies during my studies at IT-Start programming courses.
+Arkanoid JS is a modern reimagining of the classic arcade game, built from scratch using pure JavaScript, HTML5 Canvas, and CSS. This project was developed in 2020-2021 during my studies at IT-Start programming courses, marking my first major foray into game development and web technologies.
 
 Experience the nostalgic gameplay with smooth controls, vibrant visuals, and challenging levels that will test your reflexes and strategy.
 
