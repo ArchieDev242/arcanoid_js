@@ -30,7 +30,8 @@ let game = {
         platform: null
     },
 
-    create: function () {
+    create: function () 
+    {
         for(let row = 0; row < this.rows; row++) 
         {
             for(let col = 0; col < this.cols; col++) 
@@ -46,13 +47,15 @@ let game = {
         }
     },
 
-    init: function () {
+    init: function () 
+    {
         this.ctx = document.getElementById("my-game").getContext("2d")
         this.setEvents()
         this.totalScore = this.rows * this.cols
     },
 
-    setEvents: function () {
+    setEvents: function () 
+    {
         window.addEventListener("keydown", (event) => {
             if(event.keyCode == KEYS.SPACE) 
             {
@@ -71,7 +74,8 @@ let game = {
             })
     },
 
-    preload: function (callback) {
+    preload: function (callback) 
+    {
         let loaded = 0;
         let requied = Object.keys(this.sprites).length
         let onloadImage = () => {
@@ -91,7 +95,8 @@ let game = {
         }
     },
 
-    renderblocks: function () {
+    renderblocks: function () 
+    {
         for(let block of this.blocks) 
         {
             if(block.active) 
@@ -100,7 +105,8 @@ let game = {
             }
         }
     },
-    render: function () {
+    render: function () 
+    {
         this.ctx.clearRect(0, 0, 1920, 1100)
         this.ctx.drawImage(this.sprites.background, 0, 0)
         this.ctx.drawImage(this.sprites.ball, this.ball.x, this.ball.y)
@@ -108,7 +114,8 @@ let game = {
         this.renderblocks()
 
     },
-    update: function () {
+    update: function () 
+    {
         this.collideBlock()
         this.collidePlatform()
         this.platform.collideWindow()
@@ -116,27 +123,34 @@ let game = {
         this.ball.move()
         this.platform.move()
     },
-    collideBlock() {
-        for (let block of this.blocks) {
-            if (block.active && this.ball.collide(block)) {
+    collideBlock() 
+    {
+        for(let block of this.blocks) 
+            {
+            if(block.active && this.ball.collide(block)) 
+                {
                 this.ball.bumpBlock(block)
             }
 
         }
     },
-    collidePlatform() {
-        if (this.ball.collide(this.platform)) {
+    collidePlatform() 
+    {
+        if(this.ball.collide(this.platform)) 
+            {
             this.ball.bumpPlatform(this.platform)
         }
     },
-    run: function () {
+    run: function () 
+    {
         window.requestAnimationFrame(() => {
             this.update()
             this.render()
             this.run()
         })
     },
-    start: function () {
+    start: function () 
+    {
         this.reset()
         this.init();
         this.preload(() => {
@@ -145,10 +159,12 @@ let game = {
         });
         this.run();
     },
-    random: function (min, max) {
+    random: function (min, max) 
+    {
         return Math.floor(Math.random() * (max - min) + min)
     },
-    reset: function () {
+    reset: function () 
+    {
         this.blocks = []
         this.totalScore = this.rows * this.cols
 
@@ -177,20 +193,26 @@ game.ball = {
     velocity: 3,
     width: 40,
     height: 40,
-    start: function () {
+    start: function () 
+    {
         this.dy = -this.velocity
         this.dx = game.random(-this.velocity, this.velocity)
     },
-    move: function () {
-        if (this.dy) {
+    move: function ()
+    {
+        if(this.dy) 
+            {
             this.y = this.y + this.dy
         }
-        if (this.dx) {
+
+        if(this.dx) 
+            {
             this.x = this.x + this.dx
         }
 
     },
-    collideWindow() {
+    collideWindow() 
+    {
         let x = this.x + this.dx
         let y = this.y + this.dy
 
@@ -223,7 +245,8 @@ game.ball = {
             game.reset()
         }
     },
-    collide(block) {
+    collide(block) 
+    {
         let x = this.x + this.dx
         let y = this.y + this.dy
 
@@ -238,16 +261,19 @@ game.ball = {
 
         return false
     },
-    bumpBlock(block) {
+    bumpBlock(block) 
+    {
         this.dy *= -1
         block.active = false
         game.totalScore -=1
-        if(game.totalScore == 0){
+        if(game.totalScore == 0)
+            {
             alert("win")
             window.location.reload()
         }
     },
-    bumpPlatform(platform) {
+    bumpPlatform(platform) 
+    {
         this.dy = -this.velocity
         let touchX = this.x + this.width / 2;
         this.dx = this.velocity * platform.getTouchOffSet(touchX)
@@ -261,23 +287,29 @@ game.ball = {
         width: 352,
         height: 42,
         ball: game.ball,
-        fire: function () {
+        fire: function () 
+        {
             if(this.ball) 
             {
                 this.ball.start();
                 this.ball = null;
             }
         },
-        getTouchOffSet(x) {
+        getTouchOffSet(x) 
+        {
             let diff = (this.x + this.width) - x;
             let offset = this.width - diff
             let result = 2 * offset / this.width
             return result - 1;
         },
-        move: function () {
-            if (this.dx) {
+        move: function () 
+        {
+            if(this.dx) 
+                {
                 this.x = this.x + this.dx
-                if (this.ball) {
+                
+                if(this.ball) 
+                    {
                     this.ball.x = this.ball.x + this.dx
                 }
 
@@ -290,10 +322,12 @@ game.ball = {
                 this.dx = this.velocity
             }
         },
-        stop: function () {
+        stop: function () 
+        {
             this.dx = 0
         },
-        collideWindow() {
+        collideWindow() 
+        {
             let x = this.x + this.dx
 
             let platformLeft = x

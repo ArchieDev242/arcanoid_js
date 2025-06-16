@@ -9,17 +9,22 @@ let game = {
         block:null,
         platform:null,
     },
-    init:function(){
+    init:function()
+    {
         this.ctx = document.getElementById("my-game").getContext("2d")
     },
-    create:function(){
-        for(let row = 0; row<this.rows; row++){
-            for(let col =0; col<this.cols; col++ ){
+    create:function()
+    {
+        for(let row = 0; row<this.rows; row++)
+            {
+            for(let col =0; col<this.cols; col++ )
+                {
                 this.blocks.push({})
             }
         }
     },
-    preload:function(callback){
+    preload:function(callback)
+    {
         let loaded = 0;
         let reqired = Object.keys(this.sprites).length
         let onloadImage = ()=>{
@@ -38,18 +43,21 @@ let game = {
             this.sprites[key].addEventListener("load",onloadImage)
         }
     },
-    run:function(){
+    run:function()
+    {
         window.requestAnimationFrame(()=>{
             this.render()
         })
     },
-    render:function(){
+    render:function()
+    {
         this.ctx.drawImage(this.sprites.background,0,0)
             this.ctx.drawImage(this.sprites.ball,0,0)
             this.ctx.drawImage(this.sprites.block,0,0)
             this.ctx.drawImage(this.sprites.platform,0,0)
     },
-    start:function(){
+    start:function()
+    {
         this.init()
         this.preload(()=>{
             this.run()
