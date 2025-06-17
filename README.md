@@ -24,14 +24,6 @@ Experience the nostalgic gameplay with smooth controls, vibrant visuals, and cha
     <h3>🎮 Classic Gameplay</h3>
     <p>Faithful to the original Arkanoid experience with precise controls and physics</p>
   </div>
-  <div style = "background: #1e1e2e; padding: 15px; border-radius: 8px; border-left: 4px solid #f38ba8;">
-    <h3>🏆 Progressive Difficulty</h3>
-    <p>Multiple levels with increasing challenge and unique brick patterns</p>
-  </div>
-  <div style = "background: #1e1e2e; padding: 15px; border-radius: 8px; border-left: 4px solid #a6e3a1;">
-    <h3>📊 Score System</h3>
-    <p>Track your high scores and compete with friends</p>
-  </div>
   <div style = "background: #1e1e2e; padding: 15px; border-radius: 8px; border-left: 4px solid #f9e2af;">
     <h3>🎨 Modern Design</h3>
     <p>Sleek, responsive interface with smooth animations</p>
